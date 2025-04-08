@@ -1,0 +1,46 @@
+.react-data-table-component {
+    font-family: 'Arial', sans-serif;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .react-data-table-component .rdt_Table {
+    border-collapse: collapse;
+  }
+  
+  .react-data-table-component .rdt_TableHeader {
+    background-color: #1f3a58; /* Başlık arka planı */
+    color: white;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .react-data-table-component .rdt_TableCell {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .react-data-table-component .rdt_TableRow {
+    cursor: pointer;
+  }
+  
+  .react-data-table-component .rdt_TableRow:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .react-data-table-component .rdt_Pagination {
+    background-color: #f5f5f5;
+    text-align: center;
+    padding: 10px;
+  }
+  
+  .react-data-table-component .rdt_Pagination .pagination__next {
+    background-color: #1f3a58;
+    color: white;
+  }
+  
+  .react-data-table-component .rdt_Pagination .pagination__previous {
+    background-color: #1f3a58;
+    color: white;
+  } 
