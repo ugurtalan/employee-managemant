@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "Uğur Talan",
+    "role": "Manager",
+    "username": "utalan",
+    "password": "1234"
+  },
+  {
+    "id": 2,
+    "name": "Murat Tekin",
+    "role": "Manager",
+    "username": "mtekin",
+    "password": "1234"
+  },
+  {
+    "id": 3,
+    "name": "u",
+    "role": "manager",
+    "username": "u",
+    "password": "u"
+  }
+]
