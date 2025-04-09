@@ -19,5 +19,33 @@
     "role": "manager",
     "username": "u",
     "password": "u"
+  },
+  {
+    "id": 4,
+    "name": "adaas",
+    "role": "manager",
+    "username": "adsas",
+    "password": "a"
+  },
+  {
+    "id": 5,
+    "name": "",
+    "role": "manager",
+    "username": "e",
+    "password": "e"
+  },
+  {
+    "id": 6,
+    "name": "Leanne ",
+    "role": "manager",
+    "username": "utalanas",
+    "password": "asdasd"
+  },
+  {
+    "id": 7,
+    "name": "Leanne ",
+    "role": "manager",
+    "username": "ahmot",
+    "password": "1234"
   }
 ]

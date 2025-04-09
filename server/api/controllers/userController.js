@@ -77,6 +77,21 @@ const userRecordsAdd = (req, res) => {
   }
 };
 
+const userRecordsDelete = (req,res) =>{
+  const{index,id} = req.body;
+  const users= readUsers();
+  const user = users.find(user=>user.id===Number(id));
+  if(user){
+    user.records.splice(index,1);
+    writeUsers(users);
+    console.log(users);
+    res.status(200).json({msg:'silme işlemi başarılı',records:user.records});
+  }
+  else{
+    res.status(500).json({msg:'silme işlemi başarısız'});
+  }
+}
+
 const userLogin = (req, res) => {
   console.log("userLogin'e girdi");
   const { username, password } = req.body;
@@ -116,4 +131,5 @@ module.exports = {
   userLogin,
   userRecords,
   userAnalyze,
-  userRecordsAdd,}
+  userRecordsAdd,
+userRecordsDelete,}

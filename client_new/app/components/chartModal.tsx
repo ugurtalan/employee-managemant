@@ -128,12 +128,12 @@ const ChartModal = ({employee}:Props)=>{
 }
 {
     type==='chart'&&
-    <Line options={{}} data={data({ labels, datasets })} width={600} height={600}></Line>
+    <Line options={options} data={data({ labels, datasets })} width={600} height={600}></Line>
 }
 
 {
     type==='pie'&&
-    <Pie options={{}} data={data({ labels, datasets })} width={600} height={600} ></Pie>
+    <Pie options={options} data={data({ labels, datasets })} width={600} height={600} ></Pie>
 }
 </div>
 </div>

@@ -4,12 +4,16 @@ import { useState } from "react";
 import Image from "next/image";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faWarning } from "@fortawesome/free-solid-svg-icons";
 const LoginTab = () =>{
     const [formType,setFormType] = useState<string>('giriş');
     const [username,setUsername] = useState<string>('');
     const [password,setPassword] = useState<string>('');
     const [authType,setAuthType] = useState<string>('çalışan');
     const [name,setName] = useState<string>('');
+    const [errorMessage,setErrorMessage] = useState<string>("");
+    const [registerMessage,setRegisterMessage] = useState<string>("");
     const router = useRouter();
     const handleSubmit = async (e:React.FormEvent) => {
         e.preventDefault();
@@ -24,13 +28,17 @@ const LoginTab = () =>{
             });
         
             console.log(response.data); // Başarılı ise yanıtı konsola yazdır
-            alert(response.data.msg);   // Başarılı giriş mesajı
   
             router.push(`/users/${response.data.id}`);
           } catch (error) {
             console.error('Hata:' + error);
-            alert('Hata: ' +error);
-          }
+            setErrorMessage("Kullanıcı adı veya Şifre Yanlış");
+
+            setTimeout(() => {
+                setErrorMessage("");
+            }, 5000);
+            
+        }
        }
        else if(authType==='admin'){
         try {
@@ -40,13 +48,16 @@ const LoginTab = () =>{
             });
 
             console.log(response.data);
-            alert(response.data.msg);
             router.push(`/admin/${response.data.id}?name=${response.data.name}`);
             
         } catch (error) {
-            console.log('hata' , error);
-            alert('Hata: ' +error);
+            console.error('Hata:' + error);
+            setErrorMessage("Kullanıcı adı veya Şifre Yanlış");
 
+            setTimeout(() => {
+                setErrorMessage("");
+            }, 5000);
+            
         }
        }
       };
@@ -54,39 +65,67 @@ const LoginTab = () =>{
       const handleSubmitRegister = async(e:React.FormEvent)=>{
         e.preventDefault();
 
-    if(authType==='çalışan'){    try {
-        const response = await axios.post('http://localhost:5000/user/register',{
-            name,
-            username,
-            password
-        });
-        
-        alert(response.data.msg);
-        if(response.data.msg==='kayıt başarılı'){
-        setName('');
-        setUsername('');
-        setPassword('');
-        setFormType('giriş');
-    }
-
-        
-    } catch (error) {
-        console.error('Hata:' + error);
-      alert('Hata: ');
-    }}
-    else if(authType==='admin'){
-        try {
-            console.log('authtype admin');
-                const response = axios.post('http://localhost:5000/admin/register',{
-                    name:name,
-                    username:username,
-                    password:password,
-                });
-                alert('kayıt başarılı');
-        } catch (error) {
-            alert(error);
+        if(username.length===0||name.length===0||password.length===0){
+            setRegisterMessage("Lütfen Hiçbir Alanı Boş Bırakmayınız");
+            setTimeout(() => {
+                setRegisterMessage("");
+            }, 3000);
         }
-    }
+        else{
+            if(authType==='çalışan'){    try {
+                const response = await axios.post('http://localhost:5000/user/register',{
+                    name,
+                    username,
+                    password
+                });
+                
+                if(response.data.msg==='kayıt başarılı'){
+                setName('');
+                setUsername('');
+                setPassword('');
+                setFormType('giriş');
+            }   
+        
+            setRegisterMessage("Kayıt Başarılı");
+        
+            setTimeout(() => {
+                setRegisterMessage("");
+            },3000);
+        
+                
+            } catch (error) {
+                console.error('Hata:' + error);
+              setRegisterMessage("Kayıt Başarısız");
+        
+              setTimeout(() => {
+                setRegisterMessage("");
+              }, 3000);
+            }}
+            else if(authType==='admin'){
+                try {
+                    console.log('authtype admin');
+                        const response = await axios.post('http://localhost:5000/admin/register',{
+                            name:name,
+                            username:username,
+                            password:password,
+                        });
+        
+                        
+            setRegisterMessage("Kayıt Başarılı");
+        
+            setTimeout(() => {
+                setRegisterMessage("");
+            },3000);
+                }catch(error) {
+                    console.error('Hata:' + error);
+                  setRegisterMessage("Kayıt Başarısız");
+            
+                  setTimeout(() => {
+                    setRegisterMessage("");
+                  }, 3000);
+                }
+            }
+        }
       }
 
    
@@ -199,7 +238,15 @@ const LoginTab = () =>{
 
                                     </div>
 
-                        </div>
+                            {errorMessage.length>0? <p className="bg-red-600 py-3 text-center rounded-sm"><FontAwesomeIcon className="mx-2" icon={faWarning}></FontAwesomeIcon> {errorMessage}</p>
+                        : 
+                        <></>
+                        }
+
+                        {
+                            registerMessage.length>0?<p className={`${registerMessage==="Kayıt Başarılı"?'bg-green-500 text-center py-3 rounded-sm   ':'bg-red-600  text-center py-3 rounded-sm '}`}>{registerMessage}{registerMessage==="Kayıt Başarılı"?<FontAwesomeIcon className="mx-2" icon={faCheck}></FontAwesomeIcon>:<FontAwesomeIcon className="mx-2" icon={faWarning}></FontAwesomeIcon>}</p>:<></>
+                        }
+                            </div>
 
                 </div>
         </div>

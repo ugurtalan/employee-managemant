@@ -7,9 +7,10 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import {record} from "@/app/types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus,faAdd,faFilter,faInfoCircle,faUser,faSignOut,faHome,faClock,faCalendar,faComputer} from "@fortawesome/free-solid-svg-icons";
+import { faPlus,faAdd,faFilter,faInfoCircle,faUser,faSignOut,faHome,faClock,faCalendar,faComputer, faTrash} from "@fortawesome/free-solid-svg-icons";
 import { analyze } from "@/app/types";
 import InfoCard from "@/app/components/ınfoCard";
+import ToggleButton from "@/app/components/toggleButton";
 const UsersPage = ()=>{
     const [name,setName] = useState<string>('');
     const {id} = useParams();
@@ -19,9 +20,10 @@ const UsersPage = ()=>{
     const [endDate,setEndDate] = useState<string>('99999999');
     const [isDetail,setIsDetail] = useState<boolean>(false);
     const [selectedIndex,setSelectedIndex] = useState<number>(0);
-    const [newRecord,setNewRecord] = useState<record>(records[0]);
+    const [newRecord,setNewRecord] = useState<record>(records[0]||{date:'',startTime:'' ,endTime:'',topics:'',detail:''});
     const [isJobAdd,setIsJobAdd] = useState<boolean>(false);
     const [analyze,setAnalyze] = useState<analyze>();
+    const [isEdit,setIsEdit] = useState<boolean>(false);
     const filteredRecords = () => {
       return records.filter((record) => {
           const recordDate = Number(record.date.replace(/-/g,"")); 
@@ -59,7 +61,7 @@ const UsersPage = ()=>{
                     params:{id:id},
                 }
             );
-            setAnalyze((prev)=>{
+            setAnalyze(()=>{
               return {
                 totalWorkHour:response.data.totalWorkHour,
                 averageWorkHour:response.data.averageWorkHour,
@@ -78,17 +80,44 @@ const UsersPage = ()=>{
         fetchData();
       },[]);
 
+      const handleDelete = async (index: number ) => {
+        try {
+          const response = await axios.post(`http://localhost:5000/user/records/delete`,{index:index, id:id});
+          console.log("Silme başarılı:", response.data);
+          setRecords(response.data.records);
+          
+        } catch (error) {
+          console.error("Silme hatası:", error);
+        }
+      };
+      
+
+
   async function  handleAdd(newRecord:record) {
-     try {
+   console.log("newRecord : ",newRecord.date);
+   console.log("newRecord : ",newRecord.startTime);
+   console.log("newRecord : ",newRecord.endTime);
+   console.log("newRecord : ",newRecord.topics);
+   console.log("newRecord : ",newRecord.detail); 
+   console.log(newRecord);
+   
+   if(newRecord.date.length===0||newRecord.startTime.length===0||newRecord.endTime.length===0||newRecord.topics.length===0||newRecord.detail.length===0){
+      return;
+   }
+   else{
+    try {
       const response = await axios.post('http://localhost:5000/user/records/add',{
         id:id,
         record:newRecord,
        }) 
        console.log(response.data)
+       
        setRecords((prev)=>([...prev,response.data.added]));
      } catch (error) {
       console.log("iş eklerken hata meydana geldi ", error);
      }
+   }
+   
   }
     return(
       <div className="overflow-hidden">
@@ -117,11 +146,20 @@ const UsersPage = ()=>{
          ">Hiç İş Kaydı Yok...</div>
          
           :
-           <div id="table" className="    ">
+      
+      <div id="table" className="    ">
+
+<div className="flex" id="editle-container">
+<h1>Editle</h1>
+<div id="toggle-container" className="w-fit h-fit mb-2 ml-2" onClick={()=>{setIsEdit(!isEdit)}}>
+<ToggleButton isOn={isEdit}></ToggleButton>
+</div>
+</div>
            <table className=" w-full">
                                                    <thead className="border-b-4 border-amber-100 bg-amber-300 ">
                                                         <tr className="">
-                                                           <th className="border-x-2 p-2 border-amber-100  ">Başlangıç Zamanı  <FontAwesomeIcon icon={faClock}></FontAwesomeIcon></th>
+                                                           <th className="p-2"></th>
+                                                           <th className="border-r-2 p-2 border-amber-100  ">Başlangıç Zamanı  <FontAwesomeIcon icon={faClock}></FontAwesomeIcon></th>
                                                            <th className="border-x-2 p-2 border-amber-100">Bitiş Zamanı  <FontAwesomeIcon icon={faClock}></FontAwesomeIcon></th>
                                                            <th className="border-x-2 p-2 border-amber-100">Tarih <FontAwesomeIcon icon={faCalendar}></FontAwesomeIcon></th>
                                                            <th className="p-2">Konu <FontAwesomeIcon icon={faComputer}></FontAwesomeIcon></th>
@@ -132,9 +170,12 @@ const UsersPage = ()=>{
                                                    
                                                    <tbody className="">
                                                        
-                                         {records?.map((record:record, index:number) => (
+                                         {filteredRecords().map((record:record, index:number) => (
                                            <tr className="border-t-2 h-16 border-amber-100 text-center bg-gradient-to-b from-amber-50 to-amber-100" key={index}>
-                                             <td   className=" border-x-2  border-amber-100  text-center ">{record.startTime}   </td>  
+                                             <td>{isEdit?<button className="cursor-pointer px-1 text-red-500" onClick={()=>{handleDelete(index)}}><FontAwesomeIcon icon={faTrash}></FontAwesomeIcon></button>:<></>}
+                                             </td>
+                                             <td  className=" border-r-2  border-amber-100  text-center ">
+                                              {record.startTime}   </td>  
                                              <td  className=" border-x-2  border-amber-100 text-center">{record.endTime} </td>    
                                              <td  className="border-x-2  border-amber-100  text-center">{record.date} </td>       
                                              <td  className="  text-center">{record.topics} </td>   
@@ -299,7 +340,7 @@ const UsersPage = ()=>{
                         <input className="border-2 rounded-lg p-1 border-gray-200" type="date" id="bitiş" value={endDate} onChange={(e)=>{setEndDate(e.target.value)}}/>
                         </div>
                         </div>
-                        <button className="bg-blue-300 rounded-full p-3 absolute right-3 bottom-3 " onClick={()=>{setIsFilter(false)}}>Uygula</button>
+                        <button className="bg-blue-300 rounded-full p-3 absolute right-3 bottom-3 " onClick={()=>{setIsFilter(false)}}>Tamam</button>
             </Modal>
 
             <Modal isOpen={isDetail}>

@@ -61,8 +61,9 @@ console.log('admins length : ',admins.length);
     writeAdmins(admins);
     res.status(200).json({msg:'başarılı'});
    }
-   res.status(500);
-
+   else{
+   res.status(400).json({msg:'başarısız'});
+  }
 }
 const adminLogin = (req, res) => {
     console.log("adminLogine'e girdi");

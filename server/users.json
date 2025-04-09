@@ -5,202 +5,7 @@
     "role": "employee",
     "username": "Bre",
     "password": "1234",
-    "records": [
-      {
-        "startTime": "12:18",
-        "endTime": "14:21",
-        "date": "2025-04-01",
-        "topics": "site tasaraoöoa",
-        "detail": "sadasdasdasdasdasda"
-      },
-      {
-        "startTime": "12:18",
-        "endTime": "14:21",
-        "date": "2025-04-01",
-        "topics": "site asdasdsaddddddddddddd",
-        "detail": "sadasdasdasdasdaasdasdasda"
-      },
-      {
-        "startTime": "12:18",
-        "endTime": "14:21",
-        "date": "2025-04-01",
-        "topics": "site",
-        "detail": "asdasdasdasdasdasdasd"
-      },
-      {
-        "startTime": "12:18",
-        "endTime": "14:21",
-        "date": "2025-04-02",
-        "topics": "site",
-        "detail": "asdasdasdasdasdasdasd"
-      },
-      {
-        "startTime": "13:47",
-        "endTime": "18:46",
-        "date": "2025-04-02"
-      },
-      {
-        "startTime": "10:09",
-        "endTime": "14:14",
-        "date": "2025-04-02",
-        "topics": "asc",
-        "detail": "sadasdasdasdasdaasdasdasda"
-      },
-      {
-        "startTime": "10:09",
-        "endTime": "14:14",
-        "date": "2025-04-02",
-        "topics": "asc",
-        "detail": "sadasdasdasdasdaasdasdasda"
-      },
-      {
-        "startTime": "10:09",
-        "endTime": "14:14",
-        "date": "2025-04-02",
-        "topics": "asc",
-        "detail": "sadasdasdasdasdaasdasdasda"
-      },
-      {
-        "startTime": "10:09",
-        "endTime": "14:14",
-        "date": "2025-04-02",
-        "topics": "asc",
-        "detail": "sadasdasdasdasdaasdasdasda"
-      },
-      {
-        "startTime": "10:09",
-        "endTime": "14:14",
-        "date": "2025-04-02",
-        "topics": "asc",
-        "detail": "sadasdasdasdasdaasdasdasda"
-      },
-      {
-        "startTime": "10:09",
-        "endTime": "14:14",
-        "date": "2025-04-02",
-        "topics": "asc",
-        "detail": "sadasdasdasdasdaasdasdasda"
-      },
-      {
-        "startTime": "10:09",
-        "endTime": "14:14",
-        "date": "2025-04-02",
-        "topics": "asc",
-        "detail": "sadasdasdasdasdaasdasdasda"
-      },
-      {
-        "startTime": "10:09",
-        "endTime": "14:14",
-        "date": "2025-04-02",
-        "topics": "asc",
-        "detail": "sadasdasdasdasdaasdasdasda"
-      },
-      {
-        "startTime": "10:09",
-        "endTime": "14:14",
-        "date": "2025-04-02",
-        "topics": "asc",
-        "detail": "sadasdasdasdasdaasdasdasda"
-      },
-      {
-        "startTime": "10:09",
-        "endTime": "14:14",
-        "date": "2025-04-02",
-        "topics": "asc",
-        "detail": "sadasdasdasdasdaasdasdasda"
-      },
-      {
-        "startTime": "10:09",
-        "endTime": "14:14",
-        "date": "2025-04-02",
-        "topics": "asc",
-        "detail": "sadasdasdasdasdaasdasdasda"
-      },
-      {
-        "startTime": "10:09",
-        "endTime": "14:14",
-        "date": "2025-04-02",
-        "topics": "asc",
-        "detail": "sadasdasdasdasdaasdasdasda"
-      },
-      {
-        "startTime": "10:09",
-        "endTime": "14:14",
-        "date": "2025-04-02",
-        "topics": "asc",
-        "detail": "sadasdasdasdasdaasdasdasda"
-      },
-      {
-        "startTime": "10:09",
-        "endTime": "14:14",
-        "date": "2025-04-02",
-        "topics": "asc",
-        "detail": "sadasdasdasdasdaasdasdasda"
-      },
-      {
-        "startTime": "10:09",
-        "endTime": "14:14",
-        "date": "2025-04-02",
-        "topics": "asc",
-        "detail": "sadasdasdasdasdaasdasdasda"
-      },
-      {
-        "startTime": "10:09",
-        "endTime": "14:14",
-        "date": "2025-04-02",
-        "topics": "asc",
-        "detail": "sadasdasdasdasdaasdasdasda"
-      },
-      {
-        "startTime": "10:09",
-        "endTime": "14:14",
-        "date": "2025-04-02",
-        "topics": "asc",
-        "detail": "sadasdasdasdasdaasdasdasda"
-      },
-      {
-        "startTime": "10:09",
-        "endTime": "14:14",
-        "date": "2025-04-02",
-        "topics": "asc",
-        "detail": "sadasdasdasdasdaasdasdasda"
-      },
-      {
-        "startTime": "10:09",
-        "endTime": "14:14",
-        "date": "2025-04-02",
-        "topics": "asc",
-        "detail": "sadasdasdasdasdaasdasdasda"
-      },
-      {
-        "startTime": "10:09",
-        "endTime": "14:14",
-        "date": "2025-04-02",
-        "topics": "asc",
-        "detail": "sadasdasdasdasdaasdasdasda"
-      },
-      {
-        "startTime": "10:09",
-        "endTime": "14:14",
-        "date": "2025-04-02",
-        "topics": "asc",
-        "detail": "sadasdasdasdasdaasdasdasda"
-      },
-      {
-        "startTime": "10:09",
-        "endTime": "14:14",
-        "date": "2025-04-02",
-        "topics": "asc",
-        "detail": "sadasdasdasdasdaasdasdasda"
-      },
-      {
-        "startTime": "10:09",
-        "endTime": "14:14",
-        "date": "2025-04-02",
-        "topics": "asc",
-        "detail": "sadasdasdasdasdaasdasdasda"
-      }
-    ]
+    "records": []
   },
   {
     "id": 2,
@@ -298,6 +103,54 @@
     "role": "employee",
     "username": "b",
     "password": "b",
+    "records": []
+  },
+  {
+    "id": 7,
+    "name": "",
+    "role": "employee",
+    "username": "",
+    "password": "",
+    "records": []
+  },
+  {
+    "id": 8,
+    "name": "asasa",
+    "role": "employee",
+    "username": "asasas",
+    "password": "asasas",
+    "records": []
+  },
+  {
+    "id": 9,
+    "name": "ad",
+    "role": "employee",
+    "username": "ad",
+    "password": "a",
+    "records": []
+  },
+  {
+    "id": 10,
+    "name": "ada",
+    "role": "employee",
+    "username": "ads",
+    "password": "a",
+    "records": []
+  },
+  {
+    "id": 11,
+    "name": "adaas",
+    "role": "employee",
+    "username": "adsas",
+    "password": "a",
+    "records": []
+  },
+  {
+    "id": 12,
+    "name": "",
+    "role": "employee",
+    "username": "e",
+    "password": "e",
     "records": []
   }
 ]

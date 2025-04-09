@@ -7,4 +7,5 @@ router.post('/register', userController.userRegister);
 router.post('/records', userController.userRecords);
 router.post('/records/add',userController.userRecordsAdd);
 router.get('/records/analyze',userController.userAnalyze);
+router.post('/records/delete',userController.userRecordsDelete);
 module.exports = router;

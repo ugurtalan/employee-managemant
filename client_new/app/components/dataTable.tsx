@@ -1,7 +1,7 @@
 import DataTable from 'react-data-table-component';
 import { record } from '../types';
 import React  from 'react';
-import { faArrowDown, faInfo } from '@fortawesome/free-solid-svg-icons';
+import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
@@ -45,7 +45,7 @@ const MyDataTable: React.FC<Props>=({records}) =>{
 	
 	
 	return (
-		<div className='-z-20'>
+		<div className='z-0 relative'>
 			<DataTable
 			columns={columns}
 			data={records ?? []}

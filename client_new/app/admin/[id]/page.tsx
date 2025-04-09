@@ -3,17 +3,14 @@ import Navbar from "@/app/components/navbar";
 import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { analyze, employee,record } from "@/app/types";
+import { analyze, employee } from "@/app/types";
 import DropdownToggle from "@/app/components/dropdownToggle";
 import axios from "axios";
-import { faHome,faChartLine, faInfoCircle,faUser,faClock,faCalendar,faComputer,faSignOut } from "@fortawesome/free-solid-svg-icons";
+import { faHome,faChartLine,faUser,faSignOut } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ChartModal from "../../components/chartModal";
 import { useRef } from "react";
-import React from "react";
 import InfoCardAdmin from "@/app/components/ınfoCardAdmin";
-import Modal from "@/app/components/modal";
-import RecordTable from "@/app/components/recordTable";
 import MyDataTable from "@/app/components/dataTable"; 
 
 const AdminPage = ()=>{
@@ -23,11 +20,8 @@ const {id} = useParams();
 const [employee,setEmployee] = useState<employee>();
 const [workers,setWorkers]=useState<employee[]>([]);
 const [isDrop,setIsDrop] = useState<boolean>(false);
-const [isGraphics,setIsGraphics] = useState<boolean>(false);
 const targetRef = useRef<HTMLDivElement>(null);
 const [analyze,setAnalyze] = useState<analyze>(); 
-const [isDetail,setIsDetail] = useState<boolean>(false);
-const [selectedIndex,setSelectedIndex] = useState<number>(0);
 
 useEffect(() => {
     axios.get('http://localhost:5000/admin/workers')
@@ -91,12 +85,12 @@ const handleScroll = ()=>{
                         {workers.map((worker,index)=>(
                             <li onClick={()=>{setEmployee(worker);
                                 setIsDrop((prev)=>!prev);
-                            }} key={index} className=" hover:bg-gray-300 cursor-pointer p-2 z-50" >{worker.name}</li>
+                            }} key={index} className=" hover:bg-gray-300 cursor-pointer p-2 " >{worker.name}</li>
                         ))}
                     </ul>
                 </DropdownToggle>
 
-                    <button onClick={()=>{setIsGraphics(true);handleScroll();}}  className=" cursor-pointer">
+                    <button onClick={()=>{handleScroll();}}  className=" cursor-pointer">
                         <span className="mr-2">Grafikler</span>
                         <FontAwesomeIcon icon={faChartLine}></FontAwesomeIcon>
 
@@ -115,7 +109,7 @@ const handleScroll = ()=>{
                 </h1>
         </div>
     </Navbar>
-    <div className={`fixed mt-16 px-30 rounded-br-2xl bg-gradient-to-b from-amber-50  to-amber-100 w-fit ${isDrop?'-z-10':'z-0'}`}>{employee?.name}</div>
+    <div className={`fixed mt-16 px-30 rounded-br-2xl bg-gradient-to-b from-amber-50  to-amber-100 w-fit ${isDrop?'-z-10':'z-50'}`}>{employee?.name}</div>
 
     <div id="container-genel" className=" h-screen p-6 ">
                         <div id="container-table" className="bg-gradient-to-b from-amber-100 to-amber-200 h-full mt-18 p-5 rounded-md ">
@@ -150,16 +144,7 @@ const handleScroll = ()=>{
                               </div>
     </div>
 
-                              <Modal isOpen={isDetail} >
-                              <button className="top-1 right-1 p-1 cursor-pointer absolute" id="çıkış" onClick={()=>{setIsDetail(false);
-            }}>X</button>
-            
-            <div>
-              <h1 className="text-2xl mb-2">Detaylar</h1>
-              {<p>"{employee?.records[selectedIndex]?.detail}"</p>
-            }              
-            </div>
-                              </Modal>
+                              
                               
 </div>
         
