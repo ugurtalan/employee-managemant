@@ -1,51 +1,9 @@
 [
   {
     "id": 1,
-    "name": "Uğur Talan",
-    "role": "Manager",
+    "name": "uğur talan",
+    "role": "manager",
     "username": "utalan",
-    "password": "1234"
-  },
-  {
-    "id": 2,
-    "name": "Murat Tekin",
-    "role": "Manager",
-    "username": "mtekin",
-    "password": "1234"
-  },
-  {
-    "id": 3,
-    "name": "u",
-    "role": "manager",
-    "username": "u",
-    "password": "u"
-  },
-  {
-    "id": 4,
-    "name": "adaas",
-    "role": "manager",
-    "username": "adsas",
-    "password": "a"
-  },
-  {
-    "id": 5,
-    "name": "",
-    "role": "manager",
-    "username": "e",
-    "password": "e"
-  },
-  {
-    "id": 6,
-    "name": "Leanne ",
-    "role": "manager",
-    "username": "utalanas",
-    "password": "asdasd"
-  },
-  {
-    "id": 7,
-    "name": "Leanne ",
-    "role": "manager",
-    "username": "ahmot",
     "password": "1234"
   }
 ]

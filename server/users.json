@@ -1,156 +1,83 @@
 [
   {
     "id": 1,
-    "name": "Leanne ",
+    "name": "uğur talan",
     "role": "employee",
-    "username": "Bre",
+    "username": "utalan",
     "password": "1234",
     "records": []
   },
   {
     "id": 2,
-    "name": "Kurtis ",
+    "name": "Ali",
     "role": "employee",
-    "username": "kurt",
+    "username": "ali",
     "password": "1234",
     "records": []
   },
   {
     "id": 3,
-    "name": "uğur talan",
+    "name": "Kurtis ",
     "role": "employee",
-    "username": "ut",
+    "username": "Br",
     "password": "1234",
     "records": [
       {
-        "startTime": "12:00",
-        "endTime": "13:00",
-        "date": "2025-03-21",
-        "topics": "site tasaraoöo",
-        "detail": "sadasdasdasdasdasd"
+        "date": "2025-04-10",
+        "startTime": "09:15",
+        "endTime": "16:15",
+        "topics": "Api Tasarımı",
+        "detail": "Api tasarımı yaptım"
       },
       {
-        "startTime": "12:00",
-        "endTime": "13:00",
-        "date": "2025-03-21",
-        "topics": "site tasaraoöo",
-        "detail": "sadasdasdasdasdasd"
+        "date": "2025-04-10",
+        "startTime": "12:15",
+        "endTime": "20:15",
+        "topics": "farklı iş",
+        "detail": "farkklı iş yaptım"
       },
       {
-        "startTime": "12:00",
-        "endTime": "13:00",
-        "date": "2025-03-21",
-        "topics": "site tasaraoöoa",
-        "detail": "sadasdasdasdasdasd"
-      }
-    ]
-  },
-  {
-    "id": 4,
-    "name": "yeni admin",
-    "role": "employee",
-    "username": "ya",
-    "password": "1234",
-    "records": []
-  },
-  {
-    "id": 5,
-    "name": "a",
-    "role": "employee",
-    "username": "a",
-    "password": "a",
-    "records": [
-      {
-        "startTime": "12:00",
-        "endTime": "13:00",
-        "date": "2025-03-21a",
-        "topics": "site tasaraoöoa",
-        "detail": "sadasdasdasdasdasd"
-      },
-      {
-        "startTime": "12:00",
-        "endTime": "13:00",
-        "date": "2025-03-21",
-        "topics": "site tasaraoöoa",
-        "detail": "sadasdasdasdasdasd"
-      },
-      {
-        "startTime": "12:00",
-        "endTime": "15:00",
-        "date": "2025-03-27",
+        "date": "2025-04-02",
+        "startTime": "14:30",
+        "endTime": "20:30",
         "topics": "site tasaraoöoa",
         "detail": "sadasdasdasdasdasda"
       },
       {
-        "startTime": "12:00",
-        "endTime": "15:59",
-        "date": "2025-03-27",
-        "topics": "site yapmaca",
-        "detail": "site yaptım"
+        "date": "2025-04-02",
+        "startTime": "15:31",
+        "endTime": "16:30",
+        "topics": "site tasaraoöoa",
+        "detail": "sadasdasdasdasdasda"
       },
       {
-        "startTime": "16:54",
-        "endTime": "16:56",
-        "date": "2025-03-13",
+        "date": "2025-04-04",
+        "startTime": "15:30",
+        "endTime": "22:30",
         "topics": "site tasaraoöoa",
-        "detail": "sadasdasdasdasdasd"
+        "detail": "sadasdasdasdasdasda"
+      },
+      {
+        "date": "2025-04-06",
+        "startTime": "12:30",
+        "endTime": "15:30",
+        "topics": "site tasaraoöoa",
+        "detail": "sadasdasdasdasdasda"
+      },
+      {
+        "date": "2025-04-07",
+        "startTime": "09:15",
+        "endTime": "10:25",
+        "topics": "site tasaraoöoa",
+        "detail": "sadasdasdasdasdasda"
+      },
+      {
+        "date": "2025-04-07",
+        "startTime": "16:20",
+        "endTime": "21:45",
+        "topics": "site tasaraoöoa",
+        "detail": "sadasdasdasdasdasda"
       }
     ]
-  },
-  {
-    "id": 6,
-    "name": "b",
-    "role": "employee",
-    "username": "b",
-    "password": "b",
-    "records": []
-  },
-  {
-    "id": 7,
-    "name": "",
-    "role": "employee",
-    "username": "",
-    "password": "",
-    "records": []
-  },
-  {
-    "id": 8,
-    "name": "asasa",
-    "role": "employee",
-    "username": "asasas",
-    "password": "asasas",
-    "records": []
-  },
-  {
-    "id": 9,
-    "name": "ad",
-    "role": "employee",
-    "username": "ad",
-    "password": "a",
-    "records": []
-  },
-  {
-    "id": 10,
-    "name": "ada",
-    "role": "employee",
-    "username": "ads",
-    "password": "a",
-    "records": []
-  },
-  {
-    "id": 11,
-    "name": "adaas",
-    "role": "employee",
-    "username": "adsas",
-    "password": "a",
-    "records": []
-  },
-  {
-    "id": 12,
-    "name": "",
-    "role": "employee",
-    "username": "e",
-    "password": "e",
-    "records": []
   }
 ]

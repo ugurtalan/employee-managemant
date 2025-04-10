@@ -40,11 +40,20 @@ const ChartModal = ({employee}:Props)=>{
     
     const [type,setType] = useState<string>('chart');
 
-    const labels = employee.records.map((record)=>(record.date))
-    console.log('labellar : '+labels);
-    const datas = employee.records.map((record) =>
-        timeSubtraction({ start: record.startTime, end: record.endTime })
-      );
+    const dailyDurations: { [date: string]: number } = {};
+
+employee.records.forEach(record => {
+  const duration = timeSubtraction({ start: record.startTime, end: record.endTime });
+  if (dailyDurations[record.date]) {
+    dailyDurations[record.date] += duration;
+  } else {
+    dailyDurations[record.date] = duration;
+  }
+});
+
+const labels = Object.keys(dailyDurations).sort();
+const datas = labels.map(date => dailyDurations[date]);
+
 
 
       const backgroundColors = [

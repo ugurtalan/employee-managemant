@@ -131,7 +131,7 @@ const handleScroll = ()=>{
                             <div className="grid grid-cols-2 pr-2 gap-5">
                             <InfoCardAdmin info={analyze?.MostWorkedTopic } header={"En Çok Çalışılan Konu"}></InfoCardAdmin>
                             <InfoCardAdmin info={analyze?.lastAdded} header={"Son Eklenen"}></InfoCardAdmin>
-                            <InfoCardAdmin info={String(analyze?.totalDay+ ' Gün')} header={"Toplam Çalışılan Gün"}></InfoCardAdmin>
+                            <InfoCardAdmin info={String(analyze?.totalDay+ '')} header={"Toplam Yapılan İş"}></InfoCardAdmin>
                             <InfoCardAdmin info={String(analyze?.averageWorkHour+ ' Saat')} header={"Ortalama Çalışma Süresi"}></InfoCardAdmin>
                             <InfoCardAdmin info={String(analyze?.totalWorkHour+ ' Saat')} header={"Toplam Çalışma Süresi"}></InfoCardAdmin>
         

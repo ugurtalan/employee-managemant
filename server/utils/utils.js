@@ -5,7 +5,7 @@ const totalWorkHour = (user)=>{
 
 
 const averageWorkHour = (user)=>{
-    return totalWorkHour(user)/user.records.length;
+    return totalWorkHour(user)/(user.records.length===0?1:user.records.length);
 }
 
 
@@ -30,19 +30,10 @@ const MostWorkedTopic = (user) => {
     if (user.records.length === 0) {
       return "No records available"; // records boşsa, uygun bir mesaj döndür
     }
-  
-    return user.records.reduce((most, record) => {
-      // Eğer startHour veya endHour geçerli değilse, o kaydı atla
-      if (!record.startHour || !record.endHour) {
-        return most;
-      }
-  
-      const mostTime = timeSubtraction(most.startHour, most.endHour);
-      const currentTime = timeSubtraction(record.startHour, record.endHour);
-  
-      // En fazla saat geçirilen kaydı döndür
-      return currentTime > mostTime ? record : most;
-    }, user.records[0]).topics;
+    const counts = Array(user.records.length).fill(0);
+
+    
+    
   };
   
     

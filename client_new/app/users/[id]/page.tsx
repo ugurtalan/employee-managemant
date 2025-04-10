@@ -210,9 +210,9 @@ const UsersPage = ()=>{
                </div>
             </div>
 
-            <div className="flex flex-row h-4/12 py-1 space-x-1 lg:flex lg:flex-col lg:space-y-1 lg:mt-14 lg:w-2/12 lg:px-6" id="cardlar">
+            <div  className="flex flex-row h-4/12 py-1 space-x-1 lg:flex lg:flex-col lg:space-y-1 lg:mt-14 lg:w-2/12 lg:px-6" id="cardlar">
             <InfoCard info={analyze?.MostWorkedTopic} header={"En Çok Çalışılan Konu"}></InfoCard>
-            <InfoCard info={String(analyze?.totalDay)+' Gün'} header={"Toplam Çalışılan Gün"}></InfoCard>
+            <InfoCard info={String(analyze?.totalDay)+''} header={"Toplam Yapılan İş"}></InfoCard>
             <InfoCard info={String(analyze?.totalWorkHour)+' Saat'} header={"Toplam Çalışma Süresi"}></InfoCard>
             <InfoCard info={String(analyze?.averageWorkHour+' Saat')} header={"Ortalama Çalışma Süresi"}></InfoCard>
             <InfoCard info={analyze?.lastAdded} header={"Son Eklenen"}></InfoCard>
