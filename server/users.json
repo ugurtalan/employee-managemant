@@ -23,60 +23,53 @@
     "password": "1234",
     "records": [
       {
-        "date": "2025-04-10",
-        "startTime": "09:15",
-        "endTime": "16:15",
-        "topics": "Api Tasarımı",
-        "detail": "Api tasarımı yaptım"
-      },
-      {
-        "date": "2025-04-10",
-        "startTime": "12:15",
-        "endTime": "20:15",
-        "topics": "farklı iş",
-        "detail": "farkklı iş yaptım"
+        "date": "2025-04-02",
+        "startTime": "11:08",
+        "endTime": "14:07",
+        "topics": "site tasaraoöoa",
+        "detail": "sadasdasdasdasdasd"
       },
       {
         "date": "2025-04-02",
-        "startTime": "14:30",
-        "endTime": "20:30",
+        "startTime": "11:08",
+        "endTime": "14:07",
         "topics": "site tasaraoöoa",
-        "detail": "sadasdasdasdasdasda"
+        "detail": "sadasdasdasdasdasd"
       },
       {
         "date": "2025-04-02",
-        "startTime": "15:31",
-        "endTime": "16:30",
+        "startTime": "11:08",
+        "endTime": "14:07",
         "topics": "site tasaraoöoa",
-        "detail": "sadasdasdasdasdasda"
+        "detail": "sadasdasdasdasdasd"
       },
       {
-        "date": "2025-04-04",
-        "startTime": "15:30",
-        "endTime": "22:30",
+        "date": "2025-04-02",
+        "startTime": "11:08",
+        "endTime": "14:07",
         "topics": "site tasaraoöoa",
-        "detail": "sadasdasdasdasdasda"
+        "detail": "sadasdasdasdasdasd"
       },
       {
-        "date": "2025-04-06",
-        "startTime": "12:30",
-        "endTime": "15:30",
+        "date": "2025-04-02",
+        "startTime": "11:08",
+        "endTime": "14:07",
         "topics": "site tasaraoöoa",
-        "detail": "sadasdasdasdasdasda"
+        "detail": "sadasdasdasdasdasd"
       },
       {
-        "date": "2025-04-07",
-        "startTime": "09:15",
-        "endTime": "10:25",
+        "date": "2025-04-02",
+        "startTime": "11:08",
+        "endTime": "14:07",
         "topics": "site tasaraoöoa",
-        "detail": "sadasdasdasdasdasda"
+        "detail": "sadasdasdasdasdasd"
       },
       {
-        "date": "2025-04-07",
-        "startTime": "16:20",
-        "endTime": "21:45",
+        "date": "2025-04-02",
+        "startTime": "11:08",
+        "endTime": "14:07",
         "topics": "site tasaraoöoa",
-        "detail": "sadasdasdasdasdasda"
+        "detail": "sadasdasdasdasdasd"
       }
     ]
   }

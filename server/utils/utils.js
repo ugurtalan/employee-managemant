@@ -5,7 +5,21 @@ const totalWorkHour = (user)=>{
 
 
 const averageWorkHour = (user)=>{
-    return totalWorkHour(user)/(user.records.length===0?1:user.records.length);
+    
+  const dates = [];
+
+  user.records.forEach(record => {
+    if(dates.some(date => date === record.date)){
+
+    }
+    else{
+      dates.push(record.date);
+    }
+  });
+
+  console.log("dates length : " , dates.length);
+  
+  return totalWorkHour(user)/(dates.length===0?1:dates.length);
 }
 
 

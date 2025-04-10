@@ -12,7 +12,8 @@ import ChartModal from "../../components/chartModal";
 import { useRef } from "react";
 import InfoCardAdmin from "@/app/components/ınfoCardAdmin";
 import MyDataTable from "@/app/components/dataTable"; 
-
+import {jsPDF} from "jspdf";
+import { autoTable } from 'jspdf-autotable'
 const AdminPage = ()=>{
 const params = useSearchParams();
 const name = params.get('name');
@@ -22,6 +23,32 @@ const [workers,setWorkers]=useState<employee[]>([]);
 const [isDrop,setIsDrop] = useState<boolean>(false);
 const targetRef = useRef<HTMLDivElement>(null);
 const [analyze,setAnalyze] = useState<analyze>(); 
+const doc = new jsPDF();
+
+
+const downloadPDF = () => {
+    const doc = new jsPDF();
+
+    // Tabloyu DataTable'dan al ve PDF'e ekle
+    const tableData = employee?.records || [];
+    
+    // Tabloyu PDF'e eklemek için başlıkları ve satırları döngüyle ekle
+    const headers = ["Tarih", "Başlangıç Saati", "Bitiş Saati", "Konu"];
+    const rows = tableData.map(record => [
+        record.date, 
+        record.startTime, 
+        record.endTime, 
+        record.topics,
+    ]);
+
+   autoTable(doc,{
+    head: [headers],
+    body: rows,
+   })
+
+    // PDF dosyasını indir
+    doc.save("employee_data.pdf");
+};
 
 useEffect(() => {
     axios.get('http://localhost:5000/admin/workers')
