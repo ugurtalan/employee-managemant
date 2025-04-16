@@ -5,12 +5,11 @@ const usersFilePath = path.join(__dirname, '../../users.json');
 
 const readUsers = () => {
   try {
-    const data = fs.readFileSync(usersFilePath, 'utf-8'); // 'utf-8' ekledim
-    return JSON.parse(data) ;  // Eğer JSON boşsa, boş dizi döndür
+    const data = fs.readFileSync(usersFilePath, 'utf-8'); 
+    return JSON.parse(data) ;  
   } catch (error) {
     console.error("JSON dosyası okunurken hata oluştu:", error);
-    return []; // Hata durumunda en azından boş dizi döndür
-  }
+    return []; }
 };
 
 
@@ -19,11 +18,11 @@ const adminsFilePath = path.join(__dirname, '../../admin.json');
 
 const readAdmins = () => {
   try {
-    const data = fs.readFileSync(adminsFilePath, 'utf-8'); // 'utf-8' ekledim
-    return JSON.parse(data) ;  // Eğer JSON boşsa, boş dizi döndür
+    const data = fs.readFileSync(adminsFilePath, 'utf-8'); 
+    return JSON.parse(data) ;  
   } catch (error) {
     console.error("JSON dosyası okunurken hata oluştu:", error);
-    return []; // Hata durumunda en azından boş dizi döndür
+    return []; // 
   }
 };
 
@@ -35,9 +34,69 @@ const writeAdmins = (data) => {
   }
 };
 
+const assignmentsPath = path.join(__dirname,'../../assignments.json');
+const readAssignments = ()=>{
+  try {
+    const data = fs.readFileSync(assignmentsPath,'utf-8');
+    return JSON.parse(data);
+  } catch (error) {
+    console.error("JSON dosyası okunurken hata oluştu:", error);
+    return [];
+  }
+}
+
+const writeAssignments = (data)=>{
+  try {
+     fs.writeFileSync(assignmentsPath,JSON.stringify(data,null,2));
+  } catch (error) {
+    console.error("JSON dosyası okunurken hata oluştu:", error);
+    return [];
+  
+  }
+}
 
 
+const adminAddAssign =(req,res)=>{
+  const{assign} = req.body;
+  const allAssignments = readAssignments();
 
+  const newAssignments = [...allAssignments,assign];
+  writeAssignments(newAssignments);
+  
+  res.status(200).json({msg:"ekleme başarılı" , newAssignments:newAssignments});
+
+  
+}
+
+const adminAssignTable = (req,res)=>{
+  const {sender,receiver} = req.body;
+  console.log("senderName : ", sender);
+  console.log("receiver usernmane : ", receiver.username);
+
+  
+
+  const allAssignments = readAssignments();
+console.log("all assignments : ",allAssignments);
+
+  const assignments = allAssignments.map((assignment)=>{
+
+    if(assignment.toWho===receiver.username&&assignment.fromWho===sender){
+      return assignment;
+    }
+    else{
+
+    };
+  })
+
+  console.log("assignments : " , assignments);
+  if(assignments){
+    res.status(200).json({msg:'atamalar çekim başarılı' , assignments : assignments})
+  }
+  else{
+    res.status(404).json({msg:'atamalar çekim başarısız'});
+  }
+
+}
 
 
 
@@ -77,7 +136,7 @@ const adminLogin = (req, res) => {
       res.status(200).json({ msg: 'Giriş başarılı', id: admin.id,name:admin.name  });
     } else {
       res.status(400).json({ msg: 'Geçersiz kullanıcı adı veya şifre' });
-    }  // <-- Eksik süslü parantezi tamamladık
+    }  
   
 }
 
@@ -92,4 +151,4 @@ const adminWorkers = (req,res) =>{
 
 
 
-module.exports={adminLogin,adminWorkers,adminRegister};
+module.exports={adminLogin,adminWorkers,adminRegister,adminAssignTable,adminAddAssign};

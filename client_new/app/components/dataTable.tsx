@@ -10,16 +10,10 @@ interface Props {
     records?: record[];
 }
 
-interface PropsDetail {
-    data: record;
-}
 
 const MyDataTable: React.FC<Props> = ({ records }) => {
     const sortIcon = <FontAwesomeIcon icon={faArrowDown} />;
     
-    const ExpandedComponent = ({ data }: PropsDetail) => {
-        return <p>{data.detail}</p>;
-    };
 
     const downloadPDF = () => {
         if (!records || records.length === 0) {
@@ -69,17 +63,18 @@ const MyDataTable: React.FC<Props> = ({ records }) => {
     return (
         <div className="z-0 relative ">
             <DataTable
+                title={"Kayıtlar"}
                 columns={columns}
                 data={records ?? []}
                 pagination
                 sortIcon={sortIcon}
                 responsive
-                expandableRows
-                expandableRowsComponent={ExpandedComponent}
                 paginationRowsPerPageOptions={[5, 10, 15]}
             />
-            <button onClick={downloadPDF} className="bg-white cursor-pointer w-10 text-2xl h-10 absolute right-1 top-1">
-                <FontAwesomeIcon icon={faFilePdf} />
+            <button onClick={downloadPDF} className=" cursor-pointer mr-3 items-center space-x-2 w-fit text-xs flex h-fit absolute right-1 top-3 bg-blue-300 rounded-sm p-2">
+                
+                <h1 className='text-xs min-w-20  '>Export PDF </h1>
+                <FontAwesomeIcon className="text-xl ml-1" icon={faFilePdf} />
             </button>
         </div>
     );

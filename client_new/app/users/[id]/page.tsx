@@ -7,10 +7,11 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import {record} from "@/app/types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus,faAdd,faFilter,faInfoCircle,faUser,faSignOut,faHome,faClock,faCalendar,faComputer, faTrash} from "@fortawesome/free-solid-svg-icons";
+import { faPlus,faAdd,faFilter,faInfoCircle,faUser,faSignOut,faHome,faClock,faCalendar,faComputer, faTrash, faArrowDown, faEye, faInfo, faSearch, faPersonHiking} from "@fortawesome/free-solid-svg-icons";
 import { analyze } from "@/app/types";
 import InfoCard from "@/app/components/ınfoCard";
-import ToggleButton from "@/app/components/toggleButton";
+import "../../my.css";
+import ReactPaginate from 'react-paginate';
 const UsersPage = ()=>{
     const [name,setName] = useState<string>('');
     const {id} = useParams();
@@ -23,13 +24,17 @@ const UsersPage = ()=>{
     const [newRecord,setNewRecord] = useState<record>(records[0]||{date:'',startTime:'' ,endTime:'',topics:'',detail:''});
     const [isJobAdd,setIsJobAdd] = useState<boolean>(false);
     const [analyze,setAnalyze] = useState<analyze>();
-    const [isEdit,setIsEdit] = useState<boolean>(false);
+    const [search,setSearch] = useState<string>("");
+    const pageLength = 1;
+    const [pageNumber,setPageNumber] = useState<number>(0);
+    
     const filteredRecords = () => {
       return records.filter((record) => {
           const recordDate = Number(record.date.replace(/-/g,"")); 
           const startDate1 = Number(startDate.replace(/-/g,""));
           const endDate1 = Number(endDate.replace(/-/g,""));
-          return recordDate >= startDate1 && recordDate <= endDate1;
+          const name = record.topics;
+          return recordDate >= startDate1 && recordDate <= endDate1 && (search.length!==0?name.toLowerCase().startsWith(search):true) ;
 
         });
       };
@@ -90,8 +95,10 @@ const UsersPage = ()=>{
           console.error("Silme hatası:", error);
         }
       };
-      
 
+     
+      
+      const paginatedRecords = filteredRecords().slice(pageLength*pageNumber,(pageLength*pageNumber)+pageLength)
 
   async function  handleAdd(newRecord:record) {
    console.log("newRecord : ",newRecord.date);
@@ -120,68 +127,112 @@ const UsersPage = ()=>{
    
   }
     return(
-      <div className="overflow-hidden">
+      <div className="overflow-hidden bg-[#ececf2]">
       <Navbar>
-      <div className="space-x-5 flex items-center justify-center" id="linkler">
-      <Link  href={`/users/${id}`}>Home
-      <FontAwesomeIcon className="px-2" icon={faHome}></FontAwesomeIcon>
-      </Link>
-      <Link href={`/`}>Çıkış Yap
-      <FontAwesomeIcon  className="px-2" icon={faSignOut}></FontAwesomeIcon>
-      </Link>
-
-      </div>
-      <div id="isim" className="flex items-center justify-center mr-3">
+      <div id="isim" className="flex items-center justify-center mr-13 text-white lg:mr-3 ">
+     
           <h1>
-            <FontAwesomeIcon className="px-2" icon={faUser}></FontAwesomeIcon>
-            {name}</h1>
+          {name}
+            <FontAwesomeIcon className="pr-3 pl-1" icon={faUser}></FontAwesomeIcon>
+           </h1>
+
+            <Link   href={`/`}>Çıkış Yap
+      <FontAwesomeIcon  className="px-2" icon={faSignOut}></FontAwesomeIcon>
+      
+      </Link>
       </div>
     </Navbar>
        <div className="h-screen p-6 lg:flex ">
             
-            <div className=" flex flex-col justify-start bg-gradient-to-r from-amber-100 to-amber-200 items-center  h-8/12 p-6 rounded-md mt-15 lg:h-11/12 lg:w-10/12" id="table">
-           <div className="overflow-y-scroll  w-full h-3/4">
+            <div className=" flex flex-col justify-start  items-center  h-8/12 p-6 rounded-md mt-15 bg-[#ececf2] lg:h-11/12 lg:w-10/12" id="table">
+      {records.length>0&&      <div id="actions-container" className="flex justify-end  w-full  ">
+
+                <div className="flex " id="actions">
+
+                <div className="pb-1 flex h-9 rounded-2xl  mr-36 lg:mr-80 bg-white hover:bg-[rgb(206,206,211)] " id="search" >
+                
+                  <label   htmlFor="input"></label>
+                  
+                  <input value={search} onChange={(e)=>{setSearch(e.target.value)}} id="input"  type="text" className=" h-9  focus:outline-none   lg:w-sm p-3 cursor-text transition-all duration-300 ease-in-out rounded-r-2xl
+                  " />
+                <FontAwesomeIcon className="mt-2 mr-2 " icon={faSearch}></FontAwesomeIcon>
+
+              
+                  </div>
+              <div className="pb-1" id="buttons">
+               <button id="filtrele" className="p-2 px-3 cursor-pointer transition-all duration-300 ease-in-out  rounded-2xl
+                 bg-blue-400 hover:bg-blue-500   " onClick={()=>{setIsFilter(true)}} >Filtrele 
+                <FontAwesomeIcon className="text-sm px-1" icon={faFilter}></FontAwesomeIcon>
+                </button>
+
+                <button className="p-2 px-3 cursor-pointer transition-all duration-300 ease-in-out  rounded-2xl
+                  hover:bg-green-500 bg-green-400 " onClick={()=>{setIsJobAdd(true)}} >İş Ekle 
+                <FontAwesomeIcon className="text-sm px-1" icon={faPlus}></FontAwesomeIcon>
+                </button>
+               </div>
+                  
+
+                </div>
+                  
+                  
+                </div>
+               }
+           <div className="overflow-y-visible  w-full h-3/4">
           {records.length===0?
-         <div className="h-full w-full  text-center text-5xl pt-44 [100px]:w-52
-         ">Hiç İş Kaydı Yok...</div>
+         <div className="h-full w-full space-y-5  text-center text-5xl pt-44 [100px]:w-52
+         "><h1>Hiç İş Kaydı Yok...</h1>
+
+         <p className="animate-bounce">
+          <FontAwesomeIcon icon={faArrowDown}></FontAwesomeIcon>
+         </p>
+          <button className="p-5 scale-75   cursor-pointer transition-all duration-300 ease-in-out rounded-sm
+                   bg-[#ECECF2] hover:bg-[rgb(206,206,211)] border-b-2 border-white" onClick={()=>{setIsJobAdd(true)}} >İş Ekle 
+
+                </button>
+         </div>
          
           :
       
-      <div id="table" className="    ">
+      <div id="table-container" className="overflow-x-hidden">
 
-<div className="flex" id="editle-container">
+{/**<div className="flex" id="editle-container">
 <h1>Editle</h1>
 <div id="toggle-container" className="w-fit h-fit mb-2 ml-2" onClick={()=>{setIsEdit(!isEdit)}}>
 <ToggleButton isOn={isEdit}></ToggleButton>
 </div>
-</div>
-           <table className=" w-full">
-                                                   <thead className="border-b-4 border-amber-100 bg-amber-300 ">
+</div>*/ }
+
+
+           <table className=" w-full ">
+                                                   <thead className="border-b-4 border-[#ececf2] bg-[#f5f5fa] text-lg">
                                                         <tr className="">
-                                                           <th className="p-2"></th>
-                                                           <th className="border-r-2 p-2 border-amber-100  ">Başlangıç Zamanı  <FontAwesomeIcon icon={faClock}></FontAwesomeIcon></th>
-                                                           <th className="border-x-2 p-2 border-amber-100">Bitiş Zamanı  <FontAwesomeIcon icon={faClock}></FontAwesomeIcon></th>
-                                                           <th className="border-x-2 p-2 border-amber-100">Tarih <FontAwesomeIcon icon={faCalendar}></FontAwesomeIcon></th>
+                                                           <th className="border-r-2 p-2 border-[#ececf2]  ">Başlangıç Zamanı  <FontAwesomeIcon icon={faClock}></FontAwesomeIcon></th>
+                                                           <th className="border-x-2 p-2 border-[#ececf2]">Bitiş Zamanı  <FontAwesomeIcon icon={faClock}></FontAwesomeIcon></th>
+                                                           <th className="border-x-2 p-2 border-[#ececf2]">Tarih <FontAwesomeIcon icon={faCalendar}></FontAwesomeIcon></th>
                                                            <th className="p-2">Konu <FontAwesomeIcon icon={faComputer}></FontAwesomeIcon></th>
-                                                           <th className="p-2"> </th>
+                                                           <th className="p-2">Aksiyonlar</th>
+                                                           
            
                                                         </tr>
                                                    </thead> 
                                                    
                                                    <tbody className="">
                                                        
-                                         {filteredRecords().map((record:record, index:number) => (
-                                           <tr className="border-t-2 h-16 border-amber-100 text-center bg-gradient-to-b from-amber-50 to-amber-100" key={index}>
-                                             <td>{isEdit?<button className="cursor-pointer px-1 text-red-500" onClick={()=>{handleDelete(index)}}><FontAwesomeIcon icon={faTrash}></FontAwesomeIcon></button>:<></>}
-                                             </td>
-                                             <td  className=" border-r-2  border-amber-100  text-center ">
+                                         {paginatedRecords.map((record:record, index:number) => (
+                                           <tr className="border-t-2 h-16 border-[#ececf2] text-center text-lg bg-white" key={index}>
+                                             <td  className=" border-r-4  border-[#ececf2]  text-center ">
                                               {record.startTime}   </td>  
-                                             <td  className=" border-x-2  border-amber-100 text-center">{record.endTime} </td>    
-                                             <td  className="border-x-2  border-amber-100  text-center">{record.date} </td>       
-                                             <td  className="  text-center">{record.topics} </td>   
-                                             <td>
-                                                  <button  className="text-2xl cursor-pointer text-blue-500" id="detail-button" onClick={()=>{setIsDetail(true);setSelectedIndex(index)}}>
+                                             <td  className=" border-x-2  border-[#ececf2] text-center">{record.endTime} </td>    
+                                             <td  className="border-x-2  border-[#ececf2]  text-center">{record.date} </td>       
+                                             <td  className="text-center">{record.topics} </td>   
+                                             <td >
+                                                  <button  className="px-1 text-2xl cursor-pointer text-blue-500" id="detail-button" onClick={()=>{setIsDetail(true);setSelectedIndex(index)}}>
                                                               {}<FontAwesomeIcon icon={faInfoCircle}></FontAwesomeIcon>
+                                                          </button>
+
+                                                          <button onClick={()=>{handleDelete(index)}} className=" px-1 text-2xl cursor-pointer text-red-500" >
+                                                                {}<FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
+
                                                           </button>
                                                </td>  
                                        
@@ -193,21 +244,38 @@ const UsersPage = ()=>{
                                        </tbody>
                                        
                                                    </table>
+
+
            </div>
           }
+
+<div className="">
+
+<ReactPaginate 
+          pageCount={Math.ceil(records.length/pageLength)}
+          onPageChange={(page) => {setPageNumber(page.selected)}}
+          previousLabel={'← Önceki'}
+          nextLabel={'Sonraki →'}
+          containerClassName="flex justify-center items-center w-full mt-2"
+          pageClassName=" border rounded mx-1 py-1 flex"
+          activeClassName="bg-blue-500" 
+          activeLinkClassName="p-3 cursor-pointer"
+          pageLinkClassName="p-3 cursor-pointer"
+          previousLinkClassName="px-3 py-2 mx-1 border rounded cursor-pointer"
+          nextLinkClassName="px-3 py-2 border rounded mx-1 cursor-pointer"
+          breakLabel="..."
+          marginPagesDisplayed={1}
+          pageRangeDisplayed={3}
+
+          
+          
+
+          
+          ></ReactPaginate>
+</div>
            </div>
             
-               <div className="flex items-end justify-end space-x-8 h-1/4  w-full ">
-               <button className="p-3 cursor-pointer scale-150 transition-all duration-300 ease-in-out rounded-4xl
-                hover:bg-amber-500    " onClick={()=>{setIsFilter(true)}} >Filtrele 
-                <FontAwesomeIcon className="text-sm px-1" icon={faFilter}></FontAwesomeIcon>
-                </button>
-
-                <button className="p-3 cursor-pointer scale-150 transition-all duration-300 ease-in-out rounded-4xl
-                hover:bg-amber-500    " onClick={()=>{setIsJobAdd(true)}} >İş Ekle 
-                <FontAwesomeIcon className="text-sm px-1" icon={faPlus}></FontAwesomeIcon>
-                </button>
-               </div>
+               
             </div>
 
             <div  className="flex flex-row h-4/12 py-1 space-x-1 lg:flex lg:flex-col lg:space-y-1 lg:mt-14 lg:w-2/12 lg:px-6" id="cardlar">
@@ -347,7 +415,8 @@ const UsersPage = ()=>{
         <button className="top-1 right-1 p-1 cursor-pointer absolute" id="çıkış" onClick={()=>{setIsDetail(false);
             }}>X</button>
             
-            <div>
+            <div className="text-center">
+              <FontAwesomeIcon  className="animate-ping my-3 scale-125" icon={faInfoCircle}></FontAwesomeIcon>
               <h1 className="text-2xl mb-2">Detaylar</h1>
               {records[selectedIndex]&&              <p>"{records[selectedIndex].detail}"</p>
             }              

@@ -1,5 +1,4 @@
 "use client"
-import Modal from "./modal";
 import { Bar, Line, Pie } from "react-chartjs-2";
 import { options } from "../utils";
 import { data , timeSubtraction } from '../utils';
@@ -14,6 +13,8 @@ import { Chart as ChartJS ,CategoryScale,LinearScale,
  } from "chart.js";
 import { useEffect, useState } from "react";
 import { employee } from "../types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
  ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -28,10 +29,11 @@ import { employee } from "../types";
 
     type Props = {
         employee:employee;
+        employees?:employee[];
     }
-const ChartModal = ({employee}:Props)=>{
-
-
+const ChartModal = ({employee,employees}:Props)=>{
+const [emp1 , setEmp1] = useState<employee | undefined>(employees?.[0]);
+const [isDropdown,setIsDropdown] = useState<boolean>(false);
     
 
         useEffect(()=>{
@@ -41,18 +43,58 @@ const ChartModal = ({employee}:Props)=>{
     const [type,setType] = useState<string>('chart');
 
     const dailyDurations: { [date: string]: number } = {};
+    const dailyDurations1: { [date: string]:{num_emp1:number,num_emp2:number}} = {};
+    let labels : string[] =[];
+    let datas : number[] = [];
+    let datas1 : number[] = [];
+if(!emp1){
+  employee.records.forEach(record => {
+    const duration = timeSubtraction({ start: record.startTime, end: record.endTime });
+    if (dailyDurations[record.date]) {
+      dailyDurations[record.date] += duration;
+    } else {
+      dailyDurations[record.date] = duration;
+    }
+  });
+  
+   labels = Object.keys(dailyDurations).sort();
+   datas = labels.map(date => dailyDurations[date]);
+}
+else{
+  const allRecords = [...employee.records,emp1.records];
+  employee.records.forEach((record)=>{
+    const duration= timeSubtraction({start:record.startTime,end:record.endTime});
+    
+    if(dailyDurations1[record.date]){
+      const sum = duration + dailyDurations1[record.date].num_emp1;
+      dailyDurations1[record.date] = {...dailyDurations1[record.date],num_emp1:sum} 
+    }
+    else{
+      dailyDurations1[record.date] = {num_emp1:duration,num_emp2:0};
+    }
+  })
 
-employee.records.forEach(record => {
-  const duration = timeSubtraction({ start: record.startTime, end: record.endTime });
-  if (dailyDurations[record.date]) {
-    dailyDurations[record.date] += duration;
-  } else {
-    dailyDurations[record.date] = duration;
-  }
-});
+  emp1.records.forEach((record)=>{
+    const duration= timeSubtraction({start:record.startTime,end:record.endTime});
+    
+    if(dailyDurations1[record.date]){
+      const sum = duration + dailyDurations1[record.date].num_emp2;
+      dailyDurations1[record.date] = {...dailyDurations1[record.date],num_emp2:sum} 
+    }
+    else{
+      dailyDurations1[record.date] = {num_emp1:0,num_emp2:duration};
+    }
+  });
 
-const labels = Object.keys(dailyDurations).sort();
-const datas = labels.map(date => dailyDurations[date]);
+  labels = Object.keys(dailyDurations1).sort();
+  datas = labels.map(date => dailyDurations1[date].num_emp1);
+  datas1 = labels.map(date => dailyDurations1[date].num_emp2);
+
+
+}
+
+
+
 
 
 
@@ -89,22 +131,46 @@ const datas = labels.map(date => dailyDurations[date]);
 
 
 
-    const datasets =[{
+    const datasets =
+    emp1?
+    [
+      {
+        label : `${employee.name}`,
+        data:datas,
+        borderColor:'amber',
+        backgroundColor:'red',
+      },
+      {
+        label : `${emp1.name}`,
+        data : datas1,
+        borderColor : 'amber',
+        backgroundColors : 'blue',
+      },
+  
+    ]
+    :
+    [{
         label : 'Çalışma Süresi ',
         data:datas,
         borderColor:'amber',
         backgroundColor:choosenColors,
-    }]
+    },
+  ];
+
+
+
+  
 
 
 
     return(
-        <div  id="günlük-grafik" className="w-[500px] h-[500px] relative">
+        <div  id="günlük-grafik" className="lg:w-fit lg:h-fit relative    ">
+          
         <div id="butonlar" className=" justify-center flex flex-row space-x-10 mb-10">
             <div className="flex flex-col items-center justify-center" id="buton-chart">
             <h1 className="opacity-60">Chart</h1>
             <button onClick={()=>{setType('chart')}} className="cursor-pointer  opacity-60">
-            <svg width="30" height="30" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
   <rect x="10" y="10" width="80" height="80" fill={type==='chart'?'black':'none'} stroke="black" strokeWidth="8" />
 </svg>
             </button>
@@ -113,37 +179,58 @@ const datas = labels.map(date => dailyDurations[date]);
             <div className="flex flex-col items-center justify-center" id="buton-Bar">
             <h1 className=" opacity-60">Bar</h1>
             <button onClick={()=>{setType('bar')}} className="cursor-pointer  opacity-60">
-            <svg width="30" height="30" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
   <rect x="10" y="10" width="80" height="80" fill={type==='bar'?'black':'none'} stroke="black" strokeWidth="8" />
 </svg>
             </button>
             </div>
 
-            <div className="flex flex-col items-center justify-center" id="buton-Pie">
-            <h1 className=" opacity-60">Pie</h1>
-            <button onClick={()=>{setType('pie')}} className="cursor-pointer  opacity-60">
-            <svg width="30" height="30" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-  <rect x="10" y="10" width="80" height="80" fill={type==='pie'?'black':'none'} stroke="black" strokeWidth="8" />
-</svg>
+            
+<div id="emp-picker relative">
+  
+{employees&&<div id='emp-picker-button' className="flex flex-col items-center justify-center">
+              <h1 className=" opacity-60">Choose</h1>
+              <button onClick={()=>setIsDropdown(!isDropdown)}  className="rleative cursor-pointer  opacity-60">
+            <FontAwesomeIcon icon={faBars}></FontAwesomeIcon>
+          
             </button>
-            </div>
-        </div>
+            {isDropdown&&<div className="absolute top-12 lg:top-16">
+              <svg width="16" height="8" viewBox="0 0 16 8" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 8L8 0L16 8H0Z" fill="#ececf5"/>
+    </svg>
+              </div>}
+  </div>     
+  }
+  {(employees&&isDropdown)&&
+  <div id="dropdown-emp" className="absolute mt-1 rounded-lg z-50 w-32 h-48  bg-[#ececf5]">
+    
+    <ul>
+      {employees?.map((emp,index)=>
+      {
+        if(employee!==emp){return(
+          <li  key={index}>
+          <button onClick={()=>{setEmp1(emp);setIsDropdown(false)}} className="p-1 px-2 border-b border-gray-300 text-sm cursor-pointer hover:bg-gray-300 w-full"> {emp.name}</button>
+        </li>
+        )}
+      })}
+    </ul>
+    </div>}
+    
+  </div>
+  
+  </div>
 
 
-<div className=" h-96 w-96 m-auto " id="charts">
+<div className=" lg:h-[500px] lg:w-[750px] flex justify-center h-[250px] w-[375px]     " id="charts">
 {
         type==='bar'&&
         <Bar options={options} data={data({ labels : labels, datasets:datasets })} width={600} height={600} />
 }
 {
     type==='chart'&&
-    <Line options={options} data={data({ labels, datasets })} width={600} height={600}></Line>
+    <Line options={options} data={data({ labels, datasets })} width={400} height={400}></Line>
 }
 
-{
-    type==='pie'&&
-    <Pie options={options} data={data({ labels, datasets })} width={600} height={600} ></Pie>
-}
 </div>
 </div>
     );

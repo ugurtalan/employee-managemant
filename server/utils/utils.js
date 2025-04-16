@@ -42,7 +42,7 @@ const totalDay = (user)=>{
 
 const MostWorkedTopic = (user) => {
     if (user.records.length === 0) {
-      return "No records available"; // records boşsa, uygun bir mesaj döndür
+      return "No records available"; 
     }
     const counts = Array(user.records.length).fill(0);
 
@@ -52,9 +52,9 @@ const MostWorkedTopic = (user) => {
   
     
 const lastAdded = (user) => {
-    // Eğer records dizisi boşsa, undefined döndürür
+    
     if (user.records.length === 0) {
-      return "No records available"; // veya uygun bir default değer döndürebilirsiniz.
+      return "No records available"; 
     }
     return user.records[user.records.length - 1].topics;
   };

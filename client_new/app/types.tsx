@@ -1,4 +1,3 @@
-// Record türünü tanımla
 export type record= {
     date: string;
     startTime: string;
@@ -22,6 +21,15 @@ export type analyze = {
   MostWorkedTopic:string;
   lastAdded:string;
   totalDay:number;
+}
+
+export type assignments = {
+  topic :string;
+ fromWho : string;
+ toWho : employee;
+ assignmentDate: Date;
+ details : string;
+
 }
 
   ;

@@ -27,7 +27,7 @@ const LoginTab = () =>{
               password,
             });
         
-            console.log(response.data); // Başarılı ise yanıtı konsola yazdır
+            console.log(response.data); 
   
             router.push(`/users/${response.data.id}`);
           } catch (error) {

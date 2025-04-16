@@ -6,11 +6,11 @@ const usersFilePath = path.join(__dirname, '../../users.json');
 
 const readUsers = () => {
   try {
-    const data = fs.readFileSync(usersFilePath, 'utf-8'); // 'utf-8' ekledim
-    return JSON.parse(data) || [];  // Eğer JSON boşsa, boş dizi döndür
+    const data = fs.readFileSync(usersFilePath, 'utf-8'); 
+    return JSON.parse(data) || [];  
   } catch (error) {
     console.error("JSON dosyası okunurken hata oluştu:", error);
-    return []; // Hata durumunda en azından boş dizi döndür
+    return []; 
   }
 };
 
@@ -61,6 +61,10 @@ const userRecords = (req, res) => {
   }
 };
 
+
+
+
+
 const userRecordsAdd = (req, res) => {
   console.log("userRecordsAdd'a Girdi.");
   const { id, record } = req.body;
@@ -102,7 +106,7 @@ const userLogin = (req, res) => {
     res.status(200).json({ msg: 'Giriş başarılı', id: user.id });
   } else {
     res.status(400).json({ msg: 'Geçersiz kullanıcı adı veya şifre' });
-  }  // <-- Eksik süslü parantezi tamamladık
+  }  
 };  
 
 
@@ -132,4 +136,5 @@ module.exports = {
   userRecords,
   userAnalyze,
   userRecordsAdd,
-userRecordsDelete,}
+userRecordsDelete,
+}

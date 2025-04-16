@@ -8,7 +8,7 @@ type InfoCardProp = {
 
 const InfoCard = ({info , header}:InfoCardProp)=>{
     return(
-        <div className="text-center shadow-md shadow-amber-100 bg-gradient-to-r from-amber-100 to-amber-200 w-fit p-4 h-fit rounded-md min-h-56 lg:min-w-72 lg:min-h-40 " id="container">
+        <div className="text-center bg-white w-fit p-4 h-fit rounded-md min-h-56 lg:min-w-72 lg:min-h-40 " id="container">
              
              <div className="py-3 lg:py-2 " id="başlık">
                 <h1 className="text-lg">{header}</h1>

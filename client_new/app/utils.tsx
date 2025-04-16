@@ -37,10 +37,10 @@ export const options = {
         borderWidth: 1, 
         cornerRadius: 8,
         padding: 10, 
-
-       
-        
     },
   }
 }
+
+
+
   
