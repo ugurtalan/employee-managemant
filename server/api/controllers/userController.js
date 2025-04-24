@@ -1,4 +1,4 @@
-const { totalWorkHour, averageWorkHour, totalDay, MostWorkedTopic, lastAdded,readAdmins,writeAdmins,readAssignments,writeAssignments,readUsers,writeUsers } = require('../utils/utils.js');
+const { totalWorkHour, averageWorkHour, totalDay, MostWorkedTopic, lastAdded,readAdmins,readAssignments,writeAssignments,readUsers,writeUsers } = require('../utils/utils.js');
 
 
 
