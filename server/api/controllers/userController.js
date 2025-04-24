@@ -1,26 +1,9 @@
-const fs = require('fs');
-const path = require('path');
-const { totalWorkHour, averageWorkHour, totalDay, MostWorkedTopic, lastAdded } = require('../../utils/utils.js');
+const { totalWorkHour, averageWorkHour, totalDay, MostWorkedTopic, lastAdded,readAdmins,writeAdmins,readAssignments,writeAssignments,readUsers,writeUsers } = require('../utils/utils.js');
 
-const usersFilePath = path.join(__dirname, '../../users.json');
 
-const readUsers = () => {
-  try {
-    const data = fs.readFileSync(usersFilePath, 'utf-8'); 
-    return JSON.parse(data) || [];  
-  } catch (error) {
-    console.error("JSON dosyası okunurken hata oluştu:", error);
-    return []; 
-  }
-};
 
-const writeUsers = (data) => {
-  try {
-    fs.writeFileSync(usersFilePath, JSON.stringify(data, null, 2));
-  } catch (error) {
-    console.error("Error writing users file:", error);
-  }
-};
+
+
 
 const userRegister = (req, res) => {
   console.log("userRegister'a girdi");
@@ -30,10 +13,10 @@ const userRegister = (req, res) => {
   if (!Array.isArray(users)) users = [];
   
   const user = users.find((user) => user.username === username);
-
+  const id = users?.[users.length-1]?.id+1;
   if (!user) {
     const newUser = {
-      id: users.length + 1,
+      id: id?id:1,
       name: name,
       role: 'employee',
       username: username,
@@ -61,16 +44,16 @@ const userRecords = (req, res) => {
   }
 };
 
-
-
-
-
 const userRecordsAdd = (req, res) => {
   console.log("userRecordsAdd'a Girdi.");
   const { id, record } = req.body;
   let users = readUsers();
   
   const userIndex = users.findIndex(user => user.id === Number(id));
+  if(users[userIndex].records.some((r)=>r.date===record.date)){
+    res.status(500).json({ msg:"Aynı Tarihli ekleme yapılamaz"});
+    return;
+  }
   if (userIndex !== -1) {
     users[userIndex].records.push(record);
     console.log(users[userIndex]);
@@ -97,18 +80,26 @@ const userRecordsDelete = (req,res) =>{
 }
 
 const userLogin = (req, res) => {
+  
   console.log("userLogin'e girdi");
   const { username, password } = req.body;
   const users = readUsers();
   const user = users.find(record => record.username === username && record.password === password);
+  const admins = readAdmins();
+  const admin = admins.find(admin => admin.username === username && admin.password === password);
 
   if (user) {
-    res.status(200).json({ msg: 'Giriş başarılı', id: user.id });
+    res.status(200).json({ msg: 'Giriş başarılı', id: user.id ,type:'employee'});
   } else {
+    if(admin){
+    res.status(200).json({msg: 'giriş başarılı', id:admin.id , type:'manager',name:admin.name});
+    }
+  else{
     res.status(400).json({ msg: 'Geçersiz kullanıcı adı veya şifre' });
+
+  }  
   }  
 };  
-
 
 const userAnalyze = (req, res) => {
   console.log("userAnalyze'a girdi.");
@@ -130,6 +121,74 @@ const userAnalyze = (req, res) => {
   });
 };
 
+const userAssignmentsSeen = (req,res) =>{
+  console.log("userAS gitrdi");
+  const{userId} = req.body;
+  const allAssignments = readAssignments();
+  const users = readUsers();
+  const user = users.find((user)=>user.id===Number(userId));
+  console.log(user);
+  const newAssignments = allAssignments.map((assignment)=>{
+    if(assignment.toWho===user.username){
+     return newAssignment = {...assignment,seen:true};
+    }
+    return assignment;
+  })
+
+  writeAssignments(newAssignments);
+
+  res.status(200).json({msg:'başarılı'});
+}
+
+const usersAssignments = (req,res)=>{
+  console.log('userASsiignments girdi . ');
+  const{id} = req.body;
+  const allAssignments = readAssignments();
+  const allUsers = readUsers();
+
+  console.log('ALL ASSSİGNMENTS : ',allAssignments);
+  console.log('ALL USERS' , allUsers);
+  const user = allUsers.find((usr)=>usr.id===Number(id));
+  console.log('USER : ', user);
+  if(user){
+    const assignments = allAssignments.filter((assignment)=>{
+      return (assignment.toWho===user.username)&&!(assignment.isCompleted);
+    });
+    console.log('kurtis Assignments : ',assignments);
+    if(assignments){
+      res.status(200).json({msg:'çekim başarılı', assignments:assignments})
+    }
+    else{
+      res.status(500).json({msg:'çekim başarısız'});
+    }
+  }
+  else{
+    res.status(500).json({msg:'çekim başarısız'});
+  }
+
+}
+
+const completeAssignments = (req,res)=>{
+  const {userId,taskId} = req.body;
+  const allUsers = readUsers();
+  const allAssignments= readAssignments();
+  const assignment = allAssignments.find((assignment)=>Number(taskId)===assignment.id);
+  const userIndex = allUsers.findIndex((user)=>user.id===Number(userId));
+  const newAssignment = {...assignment,isCompleted:true};
+  const newId = allAssignments?.[allAssignments.length-1]?.id+1
+  const newAssignments = [...allAssignments.filter((assignment)=> (taskId!==assignment.id)),newAssignment];
+  
+console.log("newASsignments : ", newAssignments);
+  
+  writeAssignments(newAssignments);
+  const userAssignments = newAssignments.filter((assignment)=>assignment.toWho===allUsers[userIndex].username);
+
+  res.status(200).json({msg:'tamamlama işlemi başarılı',assignments:userAssignments});
+
+
+}
+
+
 module.exports = {
   userRegister,
   userLogin,
@@ -137,4 +196,7 @@ module.exports = {
   userAnalyze,
   userRecordsAdd,
 userRecordsDelete,
+usersAssignments,
+completeAssignments,
+userAssignmentsSeen
 }

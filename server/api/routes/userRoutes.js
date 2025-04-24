@@ -8,4 +8,9 @@ router.post('/records', userController.userRecords);
 router.post('/records/add',userController.userRecordsAdd);
 router.get('/records/analyze',userController.userAnalyze);
 router.post('/records/delete',userController.userRecordsDelete);
+router.post('/assignments',userController.usersAssignments);
+router.post('/assignments/complete',userController.completeAssignments);
+router.post('/assignments/checkSeen',userController.userAssignmentsSeen);
+
+
 module.exports = router;

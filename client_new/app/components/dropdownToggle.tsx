@@ -1,6 +1,5 @@
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
 
 type DropdownProps = {
    
@@ -24,7 +23,7 @@ const DropdownToggle = ({ children,isOpen,change }: DropdownProps) => {
             </button>
 
             {isOpen && (
-                <div className="bg-[#112852] rounded-lg p-2 absolute top-full -left-3 min-w-36 min-h-36 z-50  ">
+                <div className="bg-[#112852] rounded-lg p-2 absolute top-full -left-3 min-w-36 h-fit z-50  ">
                     {children}
                 </div>
             )}

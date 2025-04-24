@@ -1,111 +1,45 @@
 [
   {
     "id": 1,
-    "name": "uğur talan",
+    "name": "Yeni Kullanıcı 1",
     "role": "employee",
-    "username": "utalan",
-    "password": "1234",
-    "records": []
-  },
-  {
-    "id": 2,
-    "name": "Ali",
-    "role": "employee",
-    "username": "ali",
+    "username": "yeni1",
     "password": "1234",
     "records": [
       {
-        "date": "2025-04-03",
-        "startTime": "10:13",
-        "endTime": "16:15",
-        "topics": "site tasaraoöoa",
-        "detail": "sadasdasdasdasdasd"
+        "date": "2025-04-23",
+        "startTime": "07:20",
+        "endTime": "16:30",
+        "topics": "Proje",
+        "detail": "-Proje endpointleri tasarlandı"
       },
       {
-        "date": "2025-04-09",
-        "startTime": "10:13",
-        "endTime": "18:15",
-        "topics": "site tasaraoöoa",
-        "detail": "sadasdasdasdasdasd"
+        "date": "2025-04-25",
+        "startTime": "07:14",
+        "endTime": "16:30",
+        "topics": "Proje",
+        "detail": "-Proje detayları"
       },
       {
-        "date": "2025-04-10",
-        "startTime": "08:13",
-        "endTime": "10:15",
-        "topics": "site tasaraoöoa",
-        "detail": "sadasdasdasdasdasd"
-      }
-    ]
-  },
-  {
-    "id": 3,
-    "name": "Kurtis ",
-    "role": "employee",
-    "username": "Br",
-    "password": "1234",
-    "records": [
-      {
-        "date": "2025-04-01",
-        "startTime": "10:29",
-        "endTime": "12:29",
-        "topics": "site tasaraoöoa",
-        "detail": "sadasdasdasdasdasd"
+        "date": "2025-04-26",
+        "startTime": "07:15",
+        "endTime": "16:30",
+        "topics": "Proje",
+        "detail": "-Proje detayları"
       },
       {
-        "date": "2025-04-02",
-        "startTime": "15:25",
-        "endTime": "16:25",
-        "topics": "site tasaraoöoa",
-        "detail": "sadasdasdasdasdasda"
+        "date": "2025-04-27",
+        "startTime": "07:15",
+        "endTime": "16:30",
+        "topics": "Rapor ",
+        "detail": "-Rapor detayları"
       },
       {
-        "date": "2025-04-02",
-        "startTime": "15:25",
-        "endTime": "16:25",
-        "topics": "site tasaraoöoa",
-        "detail": "sadasdasdasdasdasda"
-      },
-      {
-        "date": "2025-04-02",
-        "startTime": "15:25",
-        "endTime": "16:25",
-        "topics": "site tasaraoöoa",
-        "detail": "sadasdasdasdasdasda"
-      },
-      {
-        "date": "2025-04-02",
-        "startTime": "15:25",
-        "endTime": "16:25",
-        "topics": "site tasaraoöoa",
-        "detail": "sadasdasdasdasdasda"
-      },
-      {
-        "date": "2025-04-02",
-        "startTime": "15:25",
-        "endTime": "16:25",
-        "topics": "site tasaraoöoa",
-        "detail": "sadasdasdasdasdasda"
-      },
-      {
-        "date": "2025-04-02",
-        "startTime": "15:25",
-        "endTime": "16:25",
-        "topics": "site tasaraoöoa",
-        "detail": "sadasdasdasdasdasda"
-      },
-      {
-        "date": "2025-04-02",
-        "startTime": "15:25",
-        "endTime": "16:25",
-        "topics": "site tasaraoöoa",
-        "detail": "sadasdasdasdasdasda"
-      },
-      {
-        "date": "2025-04-02",
-        "startTime": "15:25",
-        "endTime": "16:25",
-        "topics": "site tasaraoöoa",
-        "detail": "sadasdasdasdasdasda"
+        "date": "2025-04-28",
+        "startTime": "07:15",
+        "endTime": "16:30",
+        "topics": "Rapor ",
+        "detail": "-Rapor detayları"
       }
     ]
   }

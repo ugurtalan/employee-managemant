@@ -1,5 +1,5 @@
 "use client"
-import { Bar, Line, Pie } from "react-chartjs-2";
+import { Bar, Line} from "react-chartjs-2";
 import { options } from "../utils";
 import { data , timeSubtraction } from '../utils';
 import { Chart as ChartJS ,CategoryScale,LinearScale,
@@ -61,7 +61,6 @@ if(!emp1){
    datas = labels.map(date => dailyDurations[date]);
 }
 else{
-  const allRecords = [...employee.records,emp1.records];
   employee.records.forEach((record)=>{
     const duration= timeSubtraction({start:record.startTime,end:record.endTime});
     
@@ -164,9 +163,9 @@ else{
 
 
     return(
-        <div  id="günlük-grafik" className="lg:w-fit lg:h-fit relative    ">
+        <div  id="günlük-grafik" className=" relative    ">
           
-        <div id="butonlar" className=" justify-center flex flex-row space-x-10 mb-10">
+        <div id="butonlar" className=" justify-center flex flex-row space-x-10 mb-10  ">
             <div className="flex flex-col items-center justify-center" id="buton-chart">
             <h1 className="opacity-60">Chart</h1>
             <button onClick={()=>{setType('chart')}} className="cursor-pointer  opacity-60">

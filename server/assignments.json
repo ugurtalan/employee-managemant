@@ -1,9 +1,22 @@
 [
-{
- "topic" : "Design Endpoints",
- "fromWho" : "uğur talan",
- "toWho" : "Br",
- "assignmentDate" : "2025-05-02",
- "details" : "Designs of the endpoints must be done by the end of the day."
-}
+  {
+    "fromWho": "Uğur talan",
+    "toWho": "hmt",
+    "assignmentDate": "2025-04-22",
+    "topic": "l",
+    "details": "ö",
+    "isCompleted": true,
+    "id": 1745324332183,
+    "seen": true
+  },
+  {
+    "fromWho": "Uğur talan",
+    "toWho": "yeni1",
+    "assignmentDate": "2025-04-23",
+    "topic": "Yeni Konu",
+    "details": "Yeni Konu",
+    "isCompleted": false,
+    "id": 1745428221266,
+    "seen": true
+  }
 ]

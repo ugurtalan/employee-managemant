@@ -1,72 +1,67 @@
+const {generateRandomId,readAdmins,writeAdmins,readAssignments,writeAssignments,readUsers } = require('../utils/utils');
 
-const fs = require('fs');
-const path = require('path');
-const usersFilePath = path.join(__dirname, '../../users.json');
-
-const readUsers = () => {
-  try {
-    const data = fs.readFileSync(usersFilePath, 'utf-8'); 
-    return JSON.parse(data) ;  
-  } catch (error) {
-    console.error("JSON dosyası okunurken hata oluştu:", error);
-    return []; }
-};
-
-
-
-const adminsFilePath = path.join(__dirname, '../../admin.json');
-
-const readAdmins = () => {
-  try {
-    const data = fs.readFileSync(adminsFilePath, 'utf-8'); 
-    return JSON.parse(data) ;  
-  } catch (error) {
-    console.error("JSON dosyası okunurken hata oluştu:", error);
-    return []; // 
-  }
-};
-
-const writeAdmins = (data) => {
-  try {
-    fs.writeFileSync(adminsFilePath, JSON.stringify(data, null, 2));
-  } catch (error) {
-    console.error("Error writing users file:", error);
-  }
-};
-
-const assignmentsPath = path.join(__dirname,'../../assignments.json');
-const readAssignments = ()=>{
-  try {
-    const data = fs.readFileSync(assignmentsPath,'utf-8');
-    return JSON.parse(data);
-  } catch (error) {
-    console.error("JSON dosyası okunurken hata oluştu:", error);
-    return [];
-  }
-}
-
-const writeAssignments = (data)=>{
-  try {
-     fs.writeFileSync(assignmentsPath,JSON.stringify(data,null,2));
-  } catch (error) {
-    console.error("JSON dosyası okunurken hata oluştu:", error);
-    return [];
-  
-  }
-}
 
 
 const adminAddAssign =(req,res)=>{
-  const{assign} = req.body;
+  const{adminId,employee,assign,date} = req.body;
   const allAssignments = readAssignments();
+  const users = readUsers();
+  const user = users.find((user)=>employee.id===user.id);
+ 
+  const fromWho = readAdmins().find((admin)=>admin.id===Number(adminId))
+  const newDate = date.replaceAll('.','-').slice(0,10).split('-').reverse().join('-');
 
-  const newAssignments = [...allAssignments,assign];
+const newAssignment = {
+fromWho:fromWho.name,
+toWho:employee.username,
+assignmentDate:newDate,
+topic:assign.topic,
+details:assign.details,
+isCompleted: false,
+id: generateRandomId(),
+seen:false
+};
+console.log(newAssignment);
+
+  const newAssignments = [...allAssignments,newAssignment];
   writeAssignments(newAssignments);
+  const userAssignments = newAssignments.filter((assignment)=>(assignment.toWho===user.username)&&(assignment.fromWho===fromWho.name));
+
   
-  res.status(200).json({msg:"ekleme başarılı" , newAssignments:newAssignments});
+  res.status(200).json({msg:"ekleme başarılı" , newAssignments:userAssignments});
 
   
 }
+
+
+const adminDeleteAssign = (req,res) =>{
+      const {id,empId,adminId} = req.body;
+      console.log('idler : ', id,' ', empId , ' ' , adminId );     
+
+      const allAssignments = readAssignments();
+      
+      const assignment = allAssignments.find((assignment)=>Number(id)===assignment.id);
+      console.log(assignment);
+      const users = readUsers();
+      const user = users.find((user)=>Number(empId)===user.id);
+      const admins = readAdmins();
+      const admin = admins.find((admin)=>Number(adminId)===admin.id);
+      console.log(assignment?'var':'yok');
+      if(assignment) {
+        
+      const newAssignments = allAssignments.filter((assignment)=>assignment.id!==Number(id))
+
+      const userAssignments = newAssignments.filter((assignment)=>(assignment.toWho===user.username)&&(assignment.fromWho===admin.name));
+
+      writeAssignments(newAssignments);
+        res.status(200).json(({msg:'çekme işlemi başarılı',newAssignments:userAssignments}));
+    }
+    else{
+
+      res.status(404).json (({msg:'çekim başarısız'}));
+    }
+      
+};
 
 const adminAssignTable = (req,res)=>{
   const {sender,receiver} = req.body;
@@ -78,15 +73,12 @@ const adminAssignTable = (req,res)=>{
   const allAssignments = readAssignments();
 console.log("all assignments : ",allAssignments);
 
-  const assignments = allAssignments.map((assignment)=>{
+  const assignments = allAssignments.filter((assignment)=>{
+   return  assignment.toWho===receiver.username&&assignment.fromWho===sender
 
-    if(assignment.toWho===receiver.username&&assignment.fromWho===sender){
-      return assignment;
-    }
-    else{
-
-    };
+    
   })
+
 
   console.log("assignments : " , assignments);
   if(assignments){
@@ -151,4 +143,4 @@ const adminWorkers = (req,res) =>{
 
 
 
-module.exports={adminLogin,adminWorkers,adminRegister,adminAssignTable,adminAddAssign};
+module.exports={adminLogin,adminWorkers,adminRegister,adminAssignTable,adminAddAssign,adminDeleteAssign};

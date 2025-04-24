@@ -23,13 +23,18 @@ export type analyze = {
   totalDay:number;
 }
 
-export type assignments = {
+export type assignment = {
   topic :string;
  fromWho : string;
- toWho : employee;
- assignmentDate: Date;
+ toWho : string;
+ assignmentDate: string;
  details : string;
+ isCompleted: boolean;
+ id:number;
+ seen:false;
 
 }
+
+
 
   ;
